@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Digital – Africa's Digital Skills Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D2B6E;
+    --green: #1A7A4A;
+    --gold: #F5A623;
+    --white: #FFFFFF;
+    --light: #F0F4FF;
+    --text: #1A1A2E;
+    --muted: #5A6480;
+    --border: #D6DFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(13,43,110,0.97);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 70px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-logo svg { width: 38px; height: 38px; }
+
+  .logo-text { font-family: 'Syne', sans-serif; font-size: 1.15rem; color: var(--white); line-height: 1.2; }
+  .logo-text span { color: var(--gold); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.8); text-decoration: none;
+    font-size: 0.9rem; font-weight: 500; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold); color: var(--navy);
+    padding: 9px 22px; border-radius: 6px;
+    text-decoration: none; font-weight: 700; font-size: 0.88rem;
+    transition: background .2s, transform .15s;
+  }
+  .nav-cta:hover { background: #ffc24a; transform: translateY(-1px); }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--navy) 60%, #1A4A8A 100%);
+    display: flex; align-items: center;
+    padding: 100px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-dots {
+    position: absolute; top: 0; right: 0; width: 420px; height: 420px;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1.5px, transparent 1.5px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  .hero-wave {
+    position: absolute; bottom: -1px; left: 0; width: 100%;
+    fill: var(--white);
+  }
+
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.4);
+    color: var(--gold); padding: 6px 14px; border-radius: 20px;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: .05em;
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    color: var(--white); line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 em { color: var(--gold); font-style: normal; }
+
+  .hero p {
+    color: rgba(255,255,255,0.75); font-size: 1.05rem;
+    line-height: 1.7; max-width: 480px; margin-bottom: 36px;
+  }
+
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    padding: 14px 28px; border-radius: 8px;
+    font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; transition: all .2s;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: #ffc24a; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,166,35,.35); }
+
+  .btn-outline {
+    border: 2px solid rgba(255,255,255,0.35); color: var(--white);
+    padding: 14px 28px; border-radius: 8px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; transition: all .2s; cursor: pointer; background: transparent;
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.07); }
+
+  .hero-stats {
+    display: flex; gap: 28px; margin-top: 44px; flex-wrap: wrap;
+  }
+  .stat { }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; color: var(--gold); font-weight: 800; }
+  .stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+  /* Hero image panel */
+  .hero-visual {
+    position: relative;
+  }
+
+  .hero-img-wrap {
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    position: relative;
+  }
+
+  .hero-img-wrap img {
+    width: 100%; display: block;
+    aspect-ratio: 4/3; object-fit: cover;
+  }
+
+  .hero-card {
+    position: absolute; bottom: -20px; left: -24px;
+    background: var(--white); border-radius: 12px;
+    padding: 14px 18px; box-shadow: 0 8px 32px rgba(0,0,0,.2);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-card-icon { font-size: 1.5rem; }
+  .hero-card-text { font-size: 0.78rem; color: var(--muted); }
+  .hero-card-text strong { display: block; font-size: 0.92rem; color: var(--text); }
+
+  /* ── SECTION BASICS ── */
+  section { padding: 90px 5%; }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  .section-label {
+    display: inline-block;
+    color: var(--green); font-weight: 700; font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: .1em;
+    margin-bottom: 12px;
+  }
+
+  .section-label::before { content: '— '; }
+
+  h2.section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    color: var(--navy); line-height: 1.2; margin-bottom: 16px;
+  }
+
+  .section-sub {
+    color: var(--muted); font-size: 1rem; max-width: 560px; line-height: 1.7;
+  }
+
+  /* ── WHY US ── */
+  #why { background: var(--light); }
+
+  .why-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px; margin-top: 50px;
+  }
+
+  .why-card {
+    background: var(--white); border-radius: 14px;
+    padding: 28px 24px;
+    border: 1px solid var(--border);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .why-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(13,43,110,.1); }
+
+  .why-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 16px;
+  }
+
+  .why-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--navy); margin-bottom: 8px; }
+  .why-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── COURSES ── */
+  #courses { background: var(--white); }
+
+  .courses-intro { max-width: 680px; margin-bottom: 50px; }
+
+  .courses-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+  }
+
+  .course-card {
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform .2s, box-shadow .2s;
+    background: var(--white);
+  }
+  .course-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(13,43,110,.13); }
+
+  .course-top {
+    padding: 28px 24px 20px;
+    position: relative;
+  }
+
+  .course-top.cyber { background: linear-gradient(135deg, #0D2B6E, #1A4A8A); }
+  .course-top.data  { background: linear-gradient(135deg, #1A7A4A, #25a866); }
+  .course-top.soft  { background: linear-gradient(135deg, #7B2D8B, #b44ac0); }
+  .course-top.ai    { background: linear-gradient(135deg, #B45309, #F59E0B); }
+
+  .course-icon { font-size: 2.2rem; margin-bottom: 12px; }
+  .course-top h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; color: #fff; margin-bottom: 6px; }
+  .course-tag {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    background: rgba(255,255,255,0.2); color: rgba(255,255,255,0.9);
+    letter-spacing: .05em;
+  }
+  .course-mode-badge {
+    position: absolute; top: 20px; right: 20px;
+    background: rgba(255,255,255,0.15); color: #fff;
+    padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;
+    backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.25);
+  }
+
+  .course-body { padding: 22px 24px; }
+  .course-body p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+
+  .course-skills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .skill-pill {
+    background: var(--light); color: var(--navy);
+    padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+  }
+
+  .course-meta { display: flex; gap: 18px; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 16px; }
+  .course-meta span { display: flex; align-items: center; gap: 4px; }
+
+  /* ── HOW IT WORKS ── */
+  #how { background: var(--light); }
+
+  .steps { display: flex; flex-direction: column; gap: 0; margin-top: 50px; max-width: 780px; }
+
+  .step {
+    display: flex; gap: 28px; align-items: flex-start;
+    padding-bottom: 40px; position: relative;
+  }
+
+  .step:not(:last-child)::after {
+    content: ''; position: absolute;
+    left: 22px; top: 52px; width: 2px;
+    height: calc(100% - 52px);
+    background: linear-gradient(to bottom, var(--navy), transparent);
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--navy); color: #fff;
+    font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1;
+  }
+
+  .step-body h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; color: var(--navy); margin-bottom: 6px; margin-top: 10px; }
+  .step-body p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { background: var(--navy); }
+  #testimonials .section-label { color: var(--gold); }
+  #testimonials .section-title { color: var(--white); }
+  #testimonials .section-sub { color: rgba(255,255,255,0.65); }
+
+  .testi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; margin-top: 50px;
+  }
+
+  .testi-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 28px;
+    transition: background .2s;
+  }
+  .testi-card:hover { background: rgba(255,255,255,0.1); }
+
+  .testi-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 14px; letter-spacing: 2px; }
+
+  .testi-text {
+    color: rgba(255,255,255,0.85); font-size: 0.92rem; line-height: 1.7;
+    margin-bottom: 20px; font-style: italic;
+  }
+
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 44px; height: 44px; border-radius: 50%; object-fit: cover;
+    border: 2px solid var(--gold);
+  }
+  .testi-name { font-weight: 700; color: #fff; font-size: 0.9rem; }
+  .testi-role { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+
+  /* ── GALLERY ── */
+  #gallery { background: var(--white); }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 16px;
+    margin-top: 50px;
+  }
+
+  .gallery-item {
+    border-radius: 12px; overflow: hidden;
+    position: relative;
+  }
+  .gallery-item:first-child { grid-row: span 2; }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; transition: transform .4s;
+  }
+  .gallery-item:hover img { transform: scale(1.04); }
+
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,43,110,.7) 0%, transparent 60%);
+    opacity: 0; transition: opacity .3s;
+    display: flex; align-items: flex-end; padding: 16px;
+    color: #fff; font-size: 0.85rem; font-weight: 600;
+  }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+  /* ── APPLY ── */
+  #apply {
+    background: linear-gradient(135deg, var(--navy) 0%, #1A4A8A 100%);
+    position: relative; overflow: hidden;
+  }
+
+  .apply-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+    pointer-events: none;
+  }
+
+  .apply-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: start; position: relative; z-index: 1;
+  }
+
+  .apply-info h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem,3vw,2.2rem); color: #fff; margin-bottom: 16px; }
+  .apply-info p { color: rgba(255,255,255,.7); line-height: 1.7; margin-bottom: 24px; font-size: 0.95rem; }
+
+  .apply-perks { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .apply-perks li { color: rgba(255,255,255,.85); font-size: 0.9rem; display: flex; gap: 10px; align-items: flex-start; }
+  .apply-perks li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+
+  /* form card */
+  .apply-form-card {
+    background: var(--white); border-radius: 20px;
+    padding: 36px 32px; box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  }
+
+  .apply-form-card h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 6px; }
+  .apply-form-card .form-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 24px; }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 11px 14px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: 0.9rem; font-family: inherit; color: var(--text);
+    background: var(--light); transition: border .2s;
+    outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--navy);
+  }
+  .form-group textarea { height: 90px; resize: vertical; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .form-mode-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
+  .mode-btn {
+    flex: 1; padding: 9px; border-radius: 7px;
+    border: 1.5px solid var(--border);
+    background: var(--light); color: var(--muted);
+    font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all .2s;
+    font-family: inherit;
+  }
+  .mode-btn.active { border-color: var(--navy); background: var(--navy); color: #fff; }
+
+  .form-submit {
+    width: 100%; padding: 14px;
+    background: var(--navy); color: #fff;
+    border: none; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 700; cursor: pointer;
+    transition: background .2s, transform .15s; font-family: inherit;
+    margin-top: 4px;
+  }
+  .form-submit:hover { background: #1A4A8A; transform: translateY(-1px); }
+
+  .form-alt {
+    text-align: center; margin-top: 14px;
+    font-size: 0.82rem; color: var(--muted);
+  }
+  .form-alt a { color: var(--green); font-weight: 600; text-decoration: none; }
+  .form-alt a:hover { text-decoration: underline; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--light); }
+
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-top: 50px; }
+
+  .contact-item { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 28px; }
+  .contact-icon {
+    width: 46px; height: 46px; border-radius: 10px;
+    background: var(--navy); color: var(--gold);
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .contact-item h4 { font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
+  .contact-item p { font-size: 0.95rem; color: var(--text); font-weight: 600; }
+
+  .social-links { display: flex; gap: 12px; margin-top: 8px; }
+  .social-link {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--navy); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; font-size: 1rem; transition: background .2s, transform .15s;
+  }
+  .social-link:hover { background: var(--gold); color: var(--navy); transform: translateY(-2px); }
+
+  .mission-box {
+    background: var(--white); border-radius: 16px;
+    padding: 32px; border: 1px solid var(--border);
+  }
+  .mission-box h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; color: var(--navy); margin-bottom: 12px; }
+  .mission-box p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+  .mission-box .tagline { font-weight: 700; color: var(--green); font-size: 0.9rem; text-transform: uppercase; letter-spacing: .08em; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text); color: rgba(255,255,255,.7);
+    padding: 50px 5% 28px;
+  }
+
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+    padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.08);
+    margin-bottom: 24px;
+  }
+
+  .footer-brand p { font-size: 0.82rem; max-width: 260px; line-height: 1.6; margin-top: 8px; color: rgba(255,255,255,.5); }
+
+  .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .footer-links a { color: rgba(255,255,255,.6); text-decoration: none; font-size: 0.85rem; transition: color .2s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.78rem; color: rgba(255,255,255,.35);
+    flex-wrap: wrap; gap: 8px;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { display: none; }
+    .hero-stats { gap: 20px; }
+
+    .apply-inner { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:first-child { grid-row: span 1; }
+
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    section { padding: 60px 5%; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .courses-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── UTILITY ── */
+  .gold-underline {
+    display: inline-block; position: relative;
+  }
+  .gold-underline::after {
+    content: ''; position: absolute; left: 0; bottom: -4px;
+    width: 60%; height: 3px; background: var(--gold); border-radius: 2px;
+  }
+
+  /* Success toast */
+  #toast {
+    position: fixed; bottom: 30px; right: 30px; z-index: 9999;
+    background: var(--green); color: #fff;
+    padding: 14px 22px; border-radius: 10px;
+    font-size: 0.9rem; font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0,0,0,.2);
+    display: none; transform: translateY(20px); opacity: 0;
+    transition: all .3s;
+  }
+  #toast.show { display: block; transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="17" cy="17" r="14" stroke="#2196F3" stroke-width="2.5" fill="none"/>
+      <ellipse cx="17" cy="17" rx="6" ry="14" stroke="#2196F3" stroke-width="2.5" fill="none"/>
+      <line x1="3" y1="17" x2="31" y2="17" stroke="#1A9850" stroke-width="2.5"/>
+      <line x1="5" y1="10" x2="29" y2="10" stroke="#1A9850" stroke-width="2"/>
+      <polygon points="23,12 33,17 23,22" fill="#F5A623"/>
+    </svg>
+    <span class="logo-text">Campus<br><span>Digital</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#testimonials">Stories</a></li>
+    <li><a href="#gallery">Campus Life</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#apply" class="nav-cta">Apply Now</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">🇰🇪 Africa's Digital Skills Academy</div>
+      <h1>Build Your<br><em>Digital Future</em><br>Starts Here.</h1>
+      <p>Campus Digital trains young Africans in Cybersecurity, Data Analytics, Software Engineering, and AI Automation — with hybrid learning that fits your life.</p>
+      <div class="hero-actions">
+        <a href="#apply" class="btn-primary">Apply Now — It's Free</a>
+        <a href="#courses" class="btn-outline">Explore Courses</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Students Trained</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Tech Tracks</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">Hybrid</div>
+          <div class="stat-label">Online & In-Person</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&q=80" alt="Students learning digital skills at Campus Digital">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,43,110,.3),transparent);"></div>
+        <div style="position:absolute;bottom:16px;left:16px;color:#fff;font-weight:700;font-size:1rem;letter-spacing:.05em;">BUILD. LEARN. GROW.</div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon">🎓</div>
+        <div class="hero-card-text">
+          <strong>Next Cohort Starting Soon</strong>
+          Apply before slots fill up
+        </div>
+      </div>
+    </div>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C360,80 1080,0 1440,40 L1440,60 L0,60 Z"/>
+  </svg>
+</section>
+
+<!-- WHY CAMPUS DIGITAL -->
+<section id="why">
+  <div class="container">
+    <span class="section-label">Why Us</span>
+    <h2 class="section-title">More Than a Course.<br>A <span class="gold-underline">Career Launch.</span></h2>
+    <p class="section-sub">We pair world-class curriculum with mentorship, community, and real-world opportunities — so you don't just learn, you land.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon" style="background:#EEF3FF;">💡</div>
+        <h3>Practical Skills</h3>
+        <p>Hands-on projects and real tools used by industry professionals — not just theory.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#EDFAF4;">🤝</div>
+        <h3>Expert Mentorship</h3>
+        <p>Learn from practitioners working at tech companies across Africa and beyond.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#FFF8EC;">🌍</div>
+        <h3>Global Opportunities</h3>
+        <p>Access internships, remote jobs, and freelance gigs through our partner network.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#F5EEF8;">🏠</div>
+        <h3>Hybrid Learning</h3>
+        <p>Attend in person or join online — our model is built for real Kenyan life.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#EDFAF4;">🏆</div>
+        <h3>Community</h3>
+        <p>Join a growing network of digital leaders who support, refer, and uplift each other.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#EEF3FF;">📜</div>
+        <h3>Certification</h3>
+        <p>Earn a recognized Campus Digital certificate to boost your CV and LinkedIn.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="container">
+    <div class="courses-intro">
+      <span class="section-label">Our Courses</span>
+      <h2 class="section-title">Four Tracks to the<br><span class="gold-underline">Digital Economy</span></h2>
+      <p class="section-sub">Choose your path. Every track is available in-person and online, with flexible scheduling so you can learn without quitting your life.</p>
+    </div>
+    <div class="courses-grid">
+
+      <!-- Cyber Security -->
+      <div class="course-card">
+        <div class="course-top cyber">
+          <div class="course-mode-badge">🔀 Hybrid</div>
+          <div class="course-icon">🔐</div>
+          <h3>Cyber Security</h3>
+          <span class="course-tag">Most In-Demand</span>
+        </div>
+        <div class="course-body">
+          <p>Protect organisations from digital threats. You'll master ethical hacking, network defence, and incident response — skills companies desperately need.</p>
+          <div class="course-skills">
+            <span class="skill-pill">Ethical Hacking</span>
+            <span class="skill-pill">Network Security</span>
+            <span class="skill-pill">SOC Analysis</span>
+            <span class="skill-pill">Kali Linux</span>
+          </div>
+          <div class="course-meta">
+            <span>⏱ 3 Months</span>
+            <span>📅 Weekdays & Weekends</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Analytics -->
+      <div class="course-card">
+        <div class="course-top data">
+          <div class="course-mode-badge">🔀 Hybrid</div>
+          <div class="course-icon">📊</div>
+          <h3>Data Analytics</h3>
+          <span class="course-tag">High Earning</span>
+        </div>
+        <div class="course-body">
+          <p>Turn raw data into decisions. Learn to collect, clean, analyse, and visualise data with tools used at leading companies across Africa.</p>
+          <div class="course-skills">
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">SQL</span>
+            <span class="skill-pill">Power BI</span>
+            <span class="skill-pill">Excel</span>
+          </div>
+          <div class="course-meta">
+            <span>⏱ 3 Months</span>
+            <span>📅 Flexible Schedule</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Software Engineering -->
+      <div class="course-card">
+        <div class="course-top soft">
+          <div class="course-mode-badge">🔀 Hybrid</div>
+          <div class="course-icon">💻</div>
+          <h3>Software Engineering</h3>
+          <span class="course-tag">Build the Future</span>
+        </div>
+        <div class="course-body">
+          <p>Go from zero to full-stack developer. Build real web apps, learn modern frameworks, and ship products you can show employers.</p>
+          <div class="course-skills">
+            <span class="skill-pill">HTML/CSS/JS</span>
+            <span class="skill-pill">React</span>
+            <span class="skill-pill">Node.js</span>
+            <span class="skill-pill">Git</span>
+          </div>
+          <div class="course-meta">
+            <span>⏱ 4 Months</span>
+            <span>📅 Evening Classes</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Automation -->
+      <div class="course-card">
+        <div class="course-top ai">
+          <div class="course-mode-badge">🔀 Hybrid</div>
+          <div class="course-icon">🤖</div>
+          <h3>AI Automation</h3>
+          <span class="course-tag">Future-Ready</span>
+        </div>
+        <div class="course-body">
+          <p>Automate workflows, build AI-powered tools, and use machine learning to solve real business problems. The most powerful skill of the decade.</p>
+          <div class="course-skills">
+            <span class="skill-pill">Python AI</span>
+            <span class="skill-pill">Prompt Engineering</span>
+            <span class="skill-pill">n8n / Zapier</span>
+            <span class="skill-pill">APIs</span>
+          </div>
+          <div class="course-meta">
+            <span>⏱ 3 Months</span>
+            <span>📅 Weekends</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <span class="section-label">The Process</span>
+    <h2 class="section-title">From Application<br>to <span class="gold-underline">Career-Ready</span></h2>
+    <p class="section-sub">We've designed a clear path so you always know what's next.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3>Apply Online</h3>
+          <p>Fill out our short application form — takes less than 5 minutes. No prior experience required for most tracks.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3>Get Enrolled</h3>
+          <p>Our team reviews your application and reaches out within 2 working days to confirm your place and share onboarding details.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3>Choose Your Mode</h3>
+          <p>Attend in-person at our campus in Nairobi or join every session online via our learning platform — or switch between both.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h3>Learn, Build, Present</h3>
+          <p>Complete hands-on projects, receive mentorship, and build a portfolio you can show employers.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <h3>Graduate & Get Placed</h3>
+          <p>Earn your certificate, join our alumni network, and access job placement support and internship connections.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <span class="section-label">Student Stories</span>
+    <h2 class="section-title">Graduates Who Took the Leap</h2>
+    <p class="section-sub">Real stories from young Kenyans who changed their trajectory through Campus Digital.</p>
+    <div class="testi-grid">
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Before Campus Digital I had zero tech skills. Three months later I landed a junior cybersecurity analyst role at a fintech company in Nairobi. The mentors pushed me every single week."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Amina Wanjiru">
+          <div>
+            <div class="testi-name">Amina Wanjiru</div>
+            <div class="testi-role">Cybersecurity Analyst · Nairobi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The Data Analytics track was exactly what I needed. I can now build Power BI dashboards for clients and earn more than I ever did in my previous job. Campus Digital opened doors I didn't know existed."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Brian Otieno">
+          <div>
+            <div class="testi-name">Brian Otieno</div>
+            <div class="testi-role">Freelance Data Analyst · Kisumu</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"I joined the Software Engineering track while working full-time. The hybrid model made it possible. I now freelance for clients in the UK and my income has tripled in one year."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Faith Muthoni">
+          <div>
+            <div class="testi-name">Faith Muthoni</div>
+            <div class="testi-role">Full-Stack Developer · Remote</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"AI Automation was mind-blowing. I built a tool that automated my employer's entire reporting process in week 3. They promoted me before I even graduated. Campus Digital is the real deal."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://randomuser.me/api/portraits/men/74.jpg" alt="Kevin Mwangi">
+          <div>
+            <div class="testi-name">Kevin Mwangi</div>
+            <div class="testi-role">Automation Engineer · Mombasa</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"As a single mum I needed something flexible. The online option meant I could learn after my kids slept. The community kept me accountable. I'm now a data analyst and proud of it."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://randomuser.me/api/portraits/women/53.jpg" alt="Grace Njeri">
+          <div>
+            <div class="testi-name">Grace Njeri</div>
+            <div class="testi-role">Data Analyst · Thika</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The quality of teaching is unlike anything I found online. Instructors respond to questions, give feedback on projects, and genuinely care about your growth. Worth every shilling."</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://randomuser.me/api/portraits/men/19.jpg" alt="Daniel Kamau">
+          <div>
+            <div class="testi-name">Daniel Kamau</div>
+            <div class="testi-role">Software Developer · Nairobi</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <span class="section-label">Campus Life</span>
+    <h2 class="section-title">Learning That <span class="gold-underline">Looks Like This</span></h2>
+    <p class="section-sub">A glimpse into our in-person sessions, online classes, and the community that makes it all worthwhile.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item" style="min-height:340px;">
+        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80" alt="Students coding together">
+        <div class="gallery-overlay">Collaborative coding sessions</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80" alt="Online lecture in progress" style="height:200px;">
+        <div class="gallery-overlay">Live online lectures</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600&q=80" alt="Group study session" style="height:200px;">
+        <div class="gallery-overlay">Group project work</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80" alt="Mentor guiding students" style="height:200px;">
+        <div class="gallery-overlay">1-on-1 mentorship</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80" alt="Student presenting project" style="height:200px;">
+        <div class="gallery-overlay">Demo day presentations</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY -->
+<section id="apply">
+  <div class="apply-dots"></div>
+  <div class="container">
+    <div class="apply-inner">
+      <div class="apply-info">
+        <span class="section-label" style="color:var(--gold);">Applications Open</span>
+        <h2>Ready to Change<br>Your Story?</h2>
+        <p>Joining Campus Digital is the first step toward a career in tech. Applications are free and our team will guide you through the whole process.</p>
+        <ul class="apply-perks">
+          <li>No prior tech experience required for most tracks</li>
+          <li>Hybrid: attend online or in-person in Nairobi</li>
+          <li>Flexible payment plans available</li>
+          <li>Job placement support after graduation</li>
+          <li>Lifetime access to our alumni community</li>
+        </ul>
+        <div style="margin-top:32px; padding:20px; background:rgba(255,255,255,0.07); border-radius:12px; border:1px solid rgba(255,255,255,0.12);">
+          <p style="color:rgba(255,255,255,0.6);font-size:0.82rem;margin-bottom:4px;">Prefer to apply on KoboToolbox directly?</p>
+          <a href="https://ee.kobotoolbox.org/x/mv3YdfLJ" target="_blank" style="color:var(--gold);font-weight:700;font-size:0.9rem;text-decoration:none;">→ Open full application form</a>
+        </div>
+      </div>
+
+      <div class="apply-form-card">
+        <h3>Start Your Application</h3>
+        <p class="form-sub">Takes less than 5 minutes. We'll be in touch within 2 days.</p>
+
+        <div class="form-group">
+          <label>Learning Mode</label>
+          <div class="form-mode-toggle">
+            <button class="mode-btn active" onclick="setMode(this,'Online')">💻 Online</button>
+            <button class="mode-btn" onclick="setMode(this,'In-Person')">🏫 In-Person</button>
+            <button class="mode-btn" onclick="setMode(this,'Both')">🔀 Both</button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name *</label>
+            <input type="text" id="fname" placeholder="e.g. Amina">
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name *</label>
+            <input type="text" id="lname" placeholder="e.g. Wanjiru">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" placeholder="+254 7XX XXX XXX">
+        </div>
+
+        <div class="form-group">
+          <label for="course">Course of Interest *</label>
+          <select id="course">
+            <option value="">Select a course…</option>
+            <option>Cyber Security</option>
+            <option>Data Analytics</option>
+            <option>Software Engineering</option>
+            <option>AI Automation</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Tell us about yourself (optional)</label>
+          <textarea id="message" placeholder="Why do you want to join Campus Digital? Any background in tech?"></textarea>
+        </div>
+
+        <button class="form-submit" onclick="submitForm()">Submit Application →</button>
+
+        <p class="form-alt">Or <a href="https://ee.kobotoolbox.org/x/mv3YdfLJ" target="_blank">apply via the full KoboToolbox form</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <span class="section-label">Get in Touch</span>
+    <h2 class="section-title">We're Here to Help</h2>
+    <p class="section-sub">Have questions before applying? Reach out and a member of our team will respond promptly.</p>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <h4>Call or WhatsApp</h4>
+            <p><a href="tel:0119484999" style="color:var(--text);text-decoration:none;">0119 484 999</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div>
+            <h4>Website</h4>
+            <p><a href="http://www.campusdigital.co.ke" style="color:var(--navy);">www.campusdigital.co.ke</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <h4>Campus Location</h4>
+            <p>Nairobi, Kenya</p>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:0.82rem;color:var(--muted);margin-bottom:10px;font-weight:600;">FOLLOW US</p>
+          <div class="social-links">
+            <a href="#" class="social-link" title="Facebook">f</a>
+            <a href="#" class="social-link" title="Instagram">📸</a>
+            <a href="#" class="social-link" title="LinkedIn">in</a>
+            <a href="#" class="social-link" title="TikTok">♪</a>
+          </div>
+          <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;">@campusdigital_ke</p>
+        </div>
+      </div>
+      <div class="mission-box">
+        <h3>Our Mission</h3>
+        <p>To empower young people with practical digital skills, mentorship and opportunities that enable them to build meaningful careers and impact communities.</p>
+        <h3 style="margin-top:20px;">Our Vision</h3>
+        <p>To be the leading digital skills academy in Africa, transforming youth into innovative leaders who shape the future.</p>
+        <p class="tagline">Empower. Equip. Elevate.</p>
+        <p style="font-size:0.82rem;color:var(--muted);margin-top:6px;">Building a digital generation that transforms Africa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo" style="margin-bottom:8px;">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+          <circle cx="17" cy="17" r="14" stroke="#2196F3" stroke-width="2.5" fill="none"/>
+          <ellipse cx="17" cy="17" rx="6" ry="14" stroke="#2196F3" stroke-width="2.5" fill="none"/>
+          <line x1="3" y1="17" x2="31" y2="17" stroke="#1A9850" stroke-width="2.5"/>
+          <line x1="5" y1="10" x2="29" y2="10" stroke="#1A9850" stroke-width="2"/>
+          <polygon points="23,12 33,17 23,22" fill="#F5A623"/>
+        </svg>
+        <span class="logo-text" style="font-size:1rem;">Campus<br><span>Digital</span></span>
+      </div>
+      <p>Africa's digital skills academy, training young people for careers in tech through hybrid education and mentorship.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#courses">Courses</a>
+      <a href="#how">How It Works</a>
+      <a href="#testimonials">Stories</a>
+      <a href="#apply">Apply</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Campus Digital. All rights reserved.</span>
+    <span>www.campusdigital.co.ke · @campusdigital_ke</span>
+  </div>
+</footer>
+
+<div id="toast">✅ Application submitted! We'll contact you within 2 days.</div>
+
+<script>
+  let selectedMode = 'Online';
+
+  function setMode(btn, mode) {
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedMode = mode;
+  }
+
+  function submitForm() {
+    const fname = document.getElementById('fname').value.trim();
+    const lname = document.getElementById('lname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const course = document.getElementById('course').value;
+
+    if (!fname || !lname || !email || !phone || !course) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    // Build KoboToolbox URL (prefill not supported, so redirect)
+    window.open('https://ee.kobotoolbox.org/x/mv3YdfLJ', '_blank');
+
+    // Show success toast
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+
+    // Clear form
+    document.getElementById('fname').value = '';
+    document.getElementById('lname').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('course').value = '';
+    document.getElementById('message').value = '';
+  }
+
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    if (links) {
+      if (links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.display = 'flex';
+        links.style.flexDirection = 'column';
+        links.style.position = 'fixed';
+        links.style.top = '70px';
+        links.style.left = '0';
+        links.style.right = '0';
+        links.style.background = 'rgba(13,43,110,0.98)';
+        links.style.padding = '20px 5%';
+        links.style.gap = '1.2rem';
+      }
+    }
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.course-card, .why-card, .testi-card, .step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
